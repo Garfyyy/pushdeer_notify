@@ -1,11 +1,11 @@
 name: Notify
 
-on:
-  schedule:
-    - cron: '0 12 */5 * *'
-    - cron: '0 12 */7 * *'
+# on:
+#   schedule:
+#     - cron: '0 12 */5 * *'
+#     - cron: '0 12 */7 * *'
 
-# on: [push]
+on: [push]
 
 env:
   PUSHKEY: ${{ secrets.PUSHKEY }}
