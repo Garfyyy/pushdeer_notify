@@ -1,17 +1,19 @@
 name: Notify
 
-# on:
-#   schedule:
-#     - cron: '0 0 */5 * *'
-#     - cron: '0 0 */7 * *'
+on:
+  schedule:
+    - cron: '0 12 */5 * *'
+    - cron: '0 12 */7 * *'
 
-on: [push]
+# on: [push]
 
 env:
   PUSHKEY: ${{ secrets.PUSHKEY }}
   CONTENT: ${{ secrets.CONTENT }}
   TITLE1: ${{ secrets.TITLE1 }}
   TITLE2: ${{ secrets.TITLE2 }}
+  DAY1: ${{ secrets.DAY1 }}
+  DAY2: ${{ secrets.DAY2 }}
 
 jobs:
   Run:
@@ -33,8 +35,8 @@ jobs:
 
     - name: Send msgs1
       if: github.event_name == 'push' || github.event.schedule == '0 0 */5 * *'
-      run: python run.py --title "$TITLE1" --content "$CONTENT"
+      run: python run.py --title "$TITLE1" --content "$CONTENT" --days DAY1
 
     - name: Send msgs2
       if: github.event.schedule == '0 0 */7 * *'
-      run: python run.py --title "$TITLE2" --content "$CONTENT"
+      run: python run.py --title "$TITLE2" --content "$CONTENT" --days DAY2
