@@ -34,9 +34,9 @@ jobs:
         pip install -r ./requirements.txt
 
     - name: Send msgs1
-      if: github.event_name == 'push' || github.event.schedule == '0 0 */5 * *'
+      if: github.event.schedule == '0 0 */5 * *'
       run: python run.py --title "$TITLE1" --content "$CONTENT" --days $DAY1
 
     - name: Send msgs2
-      if: github.event.schedule == '0 0 */7 * *'
+      if: github.event_name == 'push' || github.event.schedule == '0 0 */7 * *'
       run: python run.py --title "$TITLE2" --content "$CONTENT" --days $DAY2
