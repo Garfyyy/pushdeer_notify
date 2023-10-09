@@ -8,6 +8,10 @@ TITLE_HAX   = os.environ.get('TITLE_HAX')
 TITLE_VC    = os.environ.get('TITLE_VC')
 CONTENT     = os.environ.get('CONTENT')
 
+# TITLE_HAX = 'Hax VPS Expiring in {}'
+# TITLE_VC = 'Vc VPS Expiring in {}'
+# CONTENT = 'Plz check your Telegram, and **update Today**'
+
 def _notyfy(key, title, msg):
     pushdeer = PushDeer(pushkey=key)
     ok = pushdeer.send_markdown(title=title, desp=msg)
@@ -48,11 +52,11 @@ diff_hax = datetime.now() - last_run_date_hax
 diff_vc = datetime.now() - last_run_date_vc
 
 if diff_hax.days >= 5:
-    notify_hax(PUSHKEY, TITLE1, CONTENT)
+    notify_hax(PUSHKEY, TITLE_HAX, CONTENT)
     dates['hax'] = datetime.now().strftime('%Y-%m-%d')
 
 if diff_vc.days >= 8:
-    notify_vc(PUSHKEY, TITLE2, CONTENT)
+    notify_vc(PUSHKEY, TITLE_VC, CONTENT)
     dates['vc'] = datetime.now().strftime('%Y-%m-%d')
 
 with open('.lastrun', 'w') as f:
