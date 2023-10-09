@@ -9,8 +9,8 @@ on: [push]
 env:
   PUSHKEY:  ${{ secrets.PUSHKEY }}
   CONTENT:  ${{ secrets.CONTENT }}
-  TITLE1:   ${{ secrets.TITLE1 }}
-  TITLE2:   ${{ secrets.TITLE2 }}
+  TITLE_HAX:   ${{ secrets.TITLE_HAX }}
+  TITLE_VC:   ${{ secrets.TITLE_VC }}
   DAY:      ${{ secrets.DAY }}
 
 jobs:
