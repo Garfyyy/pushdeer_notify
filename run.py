@@ -8,10 +8,6 @@ TITLE_HAX   = os.environ.get('TITLE_HAX')
 TITLE_VC    = os.environ.get('TITLE_VC')
 CONTENT     = os.environ.get('CONTENT')
 
-# TITLE_HAX = 'Hax VPS Expiring in {}'
-# TITLE_VC = 'Vc VPS Expiring in {}'
-# CONTENT = 'Plz check your Telegram, and **update Today**'
-
 def _notyfy(key, title, msg):
     pushdeer = PushDeer(pushkey=key)
     ok = pushdeer.send_markdown(title=title, desp=msg)
