@@ -6,6 +6,9 @@ name: Notify
 
 on: [push]
 
+permissions:
+  contents: write
+
 env:
   PUSHKEY:  ${{ secrets.PUSHKEY }}
   CONTENT:  ${{ secrets.CONTENT }}
