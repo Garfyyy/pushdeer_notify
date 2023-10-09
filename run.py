@@ -3,10 +3,10 @@ import json
 from pushdeer import PushDeer
 import os
 
-PUSHKEY = os.environ.get('PUSHKEY')
-TITLE1  = os.environ.get('TITLE1 ')
-TITLE2  = os.environ.get('TITLE2 ')
-CONTENT = os.environ.get('CONTENT')
+PUSHKEY     = os.environ.get('PUSHKEY')
+TITLE_HAX   = os.environ.get('TITLE_HAX')
+TITLE_VC    = os.environ.get('TITLE_VC')
+CONTENT     = os.environ.get('CONTENT')
 
 def _notyfy(key, title, msg):
     pushdeer = PushDeer(pushkey=key)
