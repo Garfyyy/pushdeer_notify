@@ -4,21 +4,55 @@ import argparse
 import os
 
 PUSHKEY = os.environ.get('PUSHKEY')
+TITLE1  = os.environ.get('TITLE1 ')
+TITLE2  = os.environ.get('TITLE2 ')
+CONTENT = os.environ.get('CONTENT')
+
+def _notyfy(key, title, msg):
+    pushdeer = PushDeer(pushkey=key)
+    ok = pushdeer.send_markdown(title=title, desp=msg)
+    if ok:
+        print(f'Successfully sent notification.')
+    else:
+        print(f'Failed to send notification.')
+
+def notify_hax(key, title, msgs):
+    expire_time = (datetime.now() + timedelta(days=2)).strftime('%Y-%m-%d')
+    title = title.format(expire_time)
+    _notyfy(key, title, msgs)
+
+def notify_vc(key, title, msgs):
+    expire_time = (datetime.now() + timedelta(days=2)).strftime('%Y-%m-%d')
+    title = title.format(expire_time)
+    _notyfy(key, title, msgs)
 
 if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--title', type=str, default=None)
-    parser.add_argument('--content', type=str, default=None)
-    parser.add_argument('--days', type=int, default=None)
-    args = parser.parse_args()
-
-    title = args.title
-    msgs = args.content
-    day = args.days
-
-    expire_time = (datetime.now() + timedelta(days=day)).strftime('%Y-%m-%d')
-    title = title.format(expire_time)
-
-    pushdeer = PushDeer(pushkey=PUSHKEY)
-    pushdeer.send_markdown(title=title, desp=msgs)
+    try:
+        with open('./.lastrun', 'r') as f:
+            dates = json.load(f)
+            last_run_date_hax = datetime.strptime(dates['hax'], '%Y-%m-%d')
+            last_run_date_vc = datetime.strptime(dates['vc'], '%Y-%m-%d')
+    except FileNotFoundError:
+        # 如果 .lastrun 文件不存在，假设上次运行是相应的天数前
+        last_run_date_hax = datetime.now() - timedelta(days=5)
+        last_run_date_vc = datetime.now() - timedelta(days=8)
+        with open('.lastrun', 'w') as f:
+            dates = {
+                'hax': last_run_date_hax.strftime('%Y-%m-%d'),
+                'vc': last_run_date_vc.strftime('%Y-%m-%d')
+            }
+            json.dump(dates, f)
+    
+    diff_hax = datetime.now() - last_run_date_hax
+    diff_vc = datetime.now() - last_run_date_vc
+    
+    if diff_hax.days >= 5:
+        notify_hax(PUSHKEY, TITLE1, CONTENT)
+        dates['hax'] = datetime.now().strftime('%Y-%m-%d')
+    
+    if diff_vc.days >= 8:
+        notify_vc(PUSHKEY, TITLE2, CONTENT)
+        dates['vc'] = datetime.now().strftime('%Y-%m-%d')
+    
+    with open('.lastrun', 'w') as f:
+        json.dump(dates, f)
