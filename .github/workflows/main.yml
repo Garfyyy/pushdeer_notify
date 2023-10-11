@@ -1,10 +1,10 @@
 name: Notify
 
-# on:
-#   schedule:
-#     - cron: '13 12 * * *'
+on:
+  schedule:
+    - cron: '13 12 * * *'
 
-on: [push]
+# on: [push]
 
 permissions:
   contents: write
