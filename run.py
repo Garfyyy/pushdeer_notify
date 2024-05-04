@@ -37,8 +37,8 @@ try:
         last_run_date_vc = datetime.strptime(dates['vc'], '%Y-%m-%d')
 except FileNotFoundError:
     # 如果 .lastrun 文件不存在，假设上次运行是相应的天数前
-    last_run_date_hax = datetime.now() - timedelta(days=5)
-    last_run_date_vc = datetime.now() - timedelta(days=8)
+    last_run_date_hax = datetime.now() - timedelta(days=HAX_DAY)
+    last_run_date_vc = datetime.now() - timedelta(days=VC_DAY)
     with open('.lastrun', 'w') as f:
         dates = {
             'hax': last_run_date_hax.strftime('%Y-%m-%d'),
