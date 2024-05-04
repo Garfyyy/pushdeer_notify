@@ -7,6 +7,8 @@ PUSHKEY     = os.environ.get('PUSHKEY')
 TITLE_HAX   = os.environ.get('TITLE_HAX')
 TITLE_VC    = os.environ.get('TITLE_VC')
 CONTENT     = os.environ.get('CONTENT')
+HAX_DAY     = os.environ.get('HAX_DAY')
+VC_DAY      = os.environ.get('VC_DAY')
 
 def _notyfy(key, title, msg):
     pushdeer = PushDeer(pushkey=key)
@@ -47,11 +49,11 @@ except FileNotFoundError:
 diff_hax = datetime.now() - last_run_date_hax
 diff_vc = datetime.now() - last_run_date_vc
 
-if diff_hax.days >= 5:
+if diff_hax.days >= HAX_DAY:
     notify_hax(PUSHKEY, TITLE_HAX, CONTENT)
     dates['hax'] = datetime.now().strftime('%Y-%m-%d')
 
-if diff_vc.days >= 8:
+if diff_vc.days >= VC_DAY:
     notify_vc(PUSHKEY, TITLE_VC, CONTENT)
     dates['vc'] = datetime.now().strftime('%Y-%m-%d')
 
