@@ -7,8 +7,8 @@ PUSHKEY     = os.environ.get('PUSHKEY')
 TITLE_HAX   = os.environ.get('TITLE_HAX')
 TITLE_VC    = os.environ.get('TITLE_VC')
 CONTENT     = os.environ.get('CONTENT')
-HAX_DAY     = os.environ.get('HAX_DAY')
-VC_DAY      = os.environ.get('VC_DAY')
+HAX_DAY     = int(os.environ.get('HAX_DAY'))
+VC_DAY      = int(os.environ.get('VC_DAY'))
 
 def _notyfy(key, title, msg):
     pushdeer = PushDeer(pushkey=key)
